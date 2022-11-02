@@ -56,4 +56,5 @@ class QuoteViewModelFactory(
     return QuotesViewModel(repository) as T
   }
 
+
 }
