@@ -40,7 +40,12 @@ import androidx.lifecycle.Observer
 import com.raywenderlich.android.rwquotes.data.Quote
 import com.raywenderlich.android.rwquotes.data.QuotesRepositoryImpl
 import com.raywenderlich.android.rwquotes.ui.viewmodel.QuotesViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -69,16 +74,24 @@ class QuotesViewModelTest {
 
   private lateinit var isLoadingLiveData: LiveData<Boolean>
 
+  val dispatcher = TestCoroutineDispatcher()
+
   /**
    * Setup values before init tests
    *
    */
   @Before
   fun setup() {
+    Dispatchers.setMain(dispatcher)
     MockitoAnnotations.initMocks(this)
 
     viewModel = spy(QuotesViewModel(repositoryImpl))
     isLoadingLiveData = viewModel.dataLoading
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   /**
@@ -88,7 +101,7 @@ class QuotesViewModelTest {
   @Test
   fun `Assert loading values are correct fetching quotes`() {
     val testQuote = Quote(id = 1, text = "Hello World!", author = "Ray Wenderlich",
-        date = "27/12/1998")
+      date = "27/12/1998")
     var isLoading = isLoadingLiveData.value
     isLoading?.let { assertTrue(it) }
     viewModel.insertQuote(testQuote)
@@ -104,7 +117,7 @@ class QuotesViewModelTest {
   @Test
   fun `Assert loading values are correct deleting quote`() {
     val testQuote = Quote(id = 1, text = "Hello World!", author = "Ray Wenderlich",
-        date = "27/12/1998")
+      date = "27/12/1998")
     var isLoading = isLoadingLiveData.value
     isLoading?.let { assertTrue(it) }
     viewModel.delete(testQuote)
@@ -120,7 +133,7 @@ class QuotesViewModelTest {
   @Test
   fun `Assert loading values are correct updating quote`() {
     val testQuote = Quote(id = 1, text = "Hello World!", author = "Ray Wenderlich",
-        date = "27/12/1998")
+      date = "27/12/1998")
     var isLoading = isLoadingLiveData.value
     isLoading?.let { assertTrue(it) }
     viewModel.updateQuote(testQuote)

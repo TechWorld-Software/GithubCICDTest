@@ -52,8 +52,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 class QuoteViewModelFactory(
     private val repository: QuotesRepository
 ) : ViewModelProvider.Factory {
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return QuotesViewModel(repository) as T
   }
+
 
 }
