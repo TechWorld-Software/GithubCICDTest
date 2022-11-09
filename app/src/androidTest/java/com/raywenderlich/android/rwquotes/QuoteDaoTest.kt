@@ -56,7 +56,7 @@ import org.junit.runner.RunWith
  * Testing the CRUD operations for DAO operations
  */
 @RunWith(AndroidJUnit4::class)
-open class QuoteDaoTest : DatabaseTest() {
+open class QuoteDaoTest : DatabaseTest( {
 
   @get:Rule
   val instantTaskExecutorRule = InstantTaskExecutorRule()
