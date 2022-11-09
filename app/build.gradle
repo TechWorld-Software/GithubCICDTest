@@ -95,6 +95,10 @@ android {
     unitTests.returnDefaultValues = true
   }
 
+  lint {
+    sarifReport true
+  }
+
 }
 
 dependencies {
