@@ -46,7 +46,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  * Contact: lizama.enzo@gmail.com
  */
 
-
 @Entity(tableName = "rwquotes")
 data class Quote(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
